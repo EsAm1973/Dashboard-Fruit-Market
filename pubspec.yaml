@@ -38,6 +38,7 @@ dependencies:
   firebase_core: ^3.15.1
   image_picker: ^1.1.2
   skeletonizer: ^1.4.3
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
