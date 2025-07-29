@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_market_dashboard/core/widgets/custom_checkbox.dart';
 import 'package:fruit_market_dashboard/core/widgets/custom_text_feild.dart';
 import 'package:fruit_market_dashboard/features/add%20product/presentation/views/widgets/image_feild.dart';
 
@@ -47,7 +48,9 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                 onSaved: (value) {},
               ),
               SizedBox(height: 10),
-              ImageFeild(),
+              IsFeaturedCheckBox(onChecked: (value) {}),
+              SizedBox(height: 10),
+              ImageFeild(onFileChanged: (value) {}),
             ],
           ),
         ),
