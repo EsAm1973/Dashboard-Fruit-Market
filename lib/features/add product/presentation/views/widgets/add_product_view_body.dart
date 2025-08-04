@@ -140,6 +140,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                                 expiryDate: expairationMonths.toInt(),
                                 numberOfCalories: numberOfCaleries.toInt(),
                                 unitAmount: unitAmount.toInt(),
+                                reviews: [],
                               );
                           context.read<AddProductCubit>().addProduct(
                             addProductInputEntity,
