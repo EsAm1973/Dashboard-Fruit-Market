@@ -31,9 +31,7 @@ class _ImageFeildState extends State<ImageFeild> {
             );
             fileImage = File(image!.path);
             widget.onFileChanged(fileImage!);
-          } on Exception catch (e) {
-            // TODO
-          }
+          } on Exception catch (e) {}
           setState(() {
             isLoading = false;
           });
