@@ -12,10 +12,13 @@ class ImageRepoImplementation implements ImageRepo {
   @override
   Future<Either<Failures, String>> uploadImage(File image) async {
     try {
+      print('Starting image upload...');
       String imageUrl = await storageService.uploadFile(image, 'images');
+      print('Upload successful! URL: $imageUrl');
       return Right(imageUrl);
-    } on Exception {
-      return Left(ServerFailure('Failed to upload image'));
+    } on Exception catch (e) {
+      print('Upload failed with error: $e');
+      return Left(ServerFailure(e.toString()));
     }
   }
 }

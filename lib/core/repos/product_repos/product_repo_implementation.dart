@@ -14,12 +14,14 @@ class ProductRepoImplementation implements ProductRepo {
     AddProductInputEntity addProductInputEntity,
   ) async {
     try {
+      print('Uploading product: ${AddProductInputModel.fromEntity(addProductInputEntity).toMap()}');
       await databaseService.addData(
-        path: 'addProduct',
+        path: 'products',
         data: AddProductInputModel.fromEntity(addProductInputEntity).toMap(),
       );
-      return Right(null);
-    } on Exception {
+      return const Right(null);
+    } on Exception catch (e) {
+      print('Add product exception: $e');
       return Left(ServerFailure('Failed to add product'));
     }
   }

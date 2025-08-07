@@ -48,12 +48,12 @@ class _ImageFeildState extends State<ImageFeild> {
               child:
                   fileImage != null
                       ? Image.file(fileImage!)
-                      : Icon(Icons.image_outlined, size: 180),
+                      : const Icon(Icons.image_outlined, size: 180),
             ),
             Visibility(
               visible: fileImage != null,
               child: IconButton(
-                icon: Icon(Icons.delete),
+                icon: const Icon(Icons.delete),
                 onPressed: () {
                   setState(() {
                     fileImage = null;

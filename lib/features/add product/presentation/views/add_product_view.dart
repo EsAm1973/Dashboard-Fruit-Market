@@ -14,7 +14,7 @@ class AddProductView extends StatelessWidget {
         centerTitle: true,
         title: const Text('Add Product', style: AppTextStyles.bold23),
       ),
-      body: SafeArea(child: AddProductViewBody()),
+      body: const SafeArea(child: AddProductViewBody()),
     );
   }
 }

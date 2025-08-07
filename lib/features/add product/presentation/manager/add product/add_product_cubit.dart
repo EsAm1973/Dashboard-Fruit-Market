@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:fruit_market_dashboard/core/repos/images_repo/image_repo.dart';
 import 'package:fruit_market_dashboard/core/repos/product_repos/product_repo.dart';
@@ -8,17 +7,31 @@ import 'package:meta/meta.dart';
 part 'add_product_state.dart';
 
 class AddProductCubit extends Cubit<AddProductState> {
-  final ImageRepo imageRepo;
-  final ProductRepo productRepo;
-  AddProductCubit(this.imageRepo, this.productRepo)
+  AddProductCubit(this.imagesRepo, this.productsRepo)
     : super(AddProductInitial());
+
+  final ImageRepo imagesRepo;
+  final ProductRepo productsRepo;
 
   Future<void> addProduct(AddProductInputEntity addProductInputEntity) async {
     emit(AddProductLoading());
-    var result=await imageRepo.uploadImage(addProductInputEntity.fileImage);
-    result.fold((ifLeft) => emit(AddProductError(error: ifLeft.message)), (ifRight) {
-      addProductInputEntity.imageUrl=ifRight;
-      productRepo.addProduct(addProductInputEntity).then((value) => value.fold((ifLeft) => emit(AddProductError(error: ifLeft.message)), (ifRight) => emit(AddProductSuccess())));  
-    });
+    var result = await imagesRepo.uploadImage(addProductInputEntity.fileImage);
+    result.fold(
+      (f) {
+        emit(AddProductError(error: f.message));
+      },
+      (url) async {
+        addProductInputEntity.imageUrl = url;
+        var result = await productsRepo.addProduct(addProductInputEntity);
+        result.fold(
+          (f) {
+            emit(AddProductError(error: f.message));
+          },
+          (r) {
+            emit(AddProductSuccess());
+          },
+        );
+      },
+    );
   }
 }

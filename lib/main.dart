@@ -10,7 +10,7 @@ import 'package:fruit_market_dashboard/firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  SupabaseStorageService.initSupabaseStorage();
+  await SupabaseStorageService.initSupabaseStorage();
   Bloc.observer = CustomBlocObserver();
   setupGetIt();
   runApp(const MyApp());

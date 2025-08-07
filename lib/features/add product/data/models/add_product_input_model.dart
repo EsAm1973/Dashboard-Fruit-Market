@@ -72,7 +72,7 @@ class AddProductInputModel {
       'numberOfCalories': numberOfCalories,
       'averageRating': averageRating,
       'ratingCount': ratingCount,
-      'reviews': reviews,
+      'reviews': reviews.map((review) => review.toJson()).toList(),
     };
   }
 }

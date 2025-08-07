@@ -39,7 +39,7 @@ class _IsFeaturedCheckBoxState extends State<IsFeaturedCheckBox> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
-              side: BorderSide(color: Colors.black, width: 1.50),
+              side: const BorderSide(color: Colors.black, width: 1.50),
               value: _agreed,
       
               onChanged: (value) {
