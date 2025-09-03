@@ -1,6 +1,4 @@
-import 'package:fruit_market_dashboard/features/orders/domain/entites/shipping_entity.dart';
-
-class ShippingAddressModel {
+class ShippingAddressEntity {
   final String? name;
   final String? address;
   final String? city;
@@ -8,7 +6,7 @@ class ShippingAddressModel {
   final String? phone;
   final String? addressDescription;
 
-  ShippingAddressModel({
+  ShippingAddressEntity({
     required this.name,
     required this.address,
     required this.city,
@@ -26,8 +24,8 @@ class ShippingAddressModel {
     "addressDescription": addressDescription,
   };
 
-  factory ShippingAddressModel.fromJson(Map<String, dynamic> json) =>
-      ShippingAddressModel(
+  factory ShippingAddressEntity.fromJson(Map<String, dynamic> json) =>
+      ShippingAddressEntity(
         name: json["name"],
         address: json["address"],
         city: json["city"],
@@ -36,12 +34,4 @@ class ShippingAddressModel {
         addressDescription: json["addressDescription"],
       );
 
-  toEntity() => ShippingAddressEntity(
-    name: name,
-    address: address,
-    city: city,
-    email: email,
-    phone: phone,
-    addressDescription: addressDescription,
-  );
 }

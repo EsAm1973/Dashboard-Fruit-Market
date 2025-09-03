@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_market_dashboard/features/orders/data/models/order_model.dart';
-import 'package:fruit_market_dashboard/features/orders/data/models/order_product_model.dart';
+import 'package:fruit_market_dashboard/features/orders/domain/entites/order_entity.dart';
+import 'package:fruit_market_dashboard/features/orders/domain/entites/order_product_entity.dart';
 
 class OrderItemWidget extends StatelessWidget {
-  final OrderModel order;
+  final OrderEntity order;
   final VoidCallback? onTap;
   final bool initiallyExpanded;
 
@@ -16,7 +16,7 @@ class OrderItemWidget extends StatelessWidget {
 
   String _priceFmt(num price) => price.toDouble().toStringAsFixed(2);
 
-  Widget _buildProductRow(OrderProductModel p) {
+  Widget _buildProductRow(OrderProductEntity p) {
     final subtotal = (p.price * p.quantity);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -128,7 +128,7 @@ class OrderItemWidget extends StatelessWidget {
                           ),
                           const SizedBox(height: 6),
                           Text(
-                            '$itemsCount items • ${order.shippingAddressModel.city ?? '—'}',
+                            '$itemsCount items • ${order.shippingAddressEntity.city ?? '—'}',
                             style: TextStyle(
                                 fontSize: 12, color: Colors.grey[700]),
                           ),
@@ -211,18 +211,18 @@ class OrderItemWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            order.shippingAddressModel.name ??
+                            order.shippingAddressEntity.name ??
                                 'No name provided',
                             style: const TextStyle(fontWeight: FontWeight.w600),
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '${order.shippingAddressModel.address ?? ''} ${order.shippingAddressModel.addressDescription ?? ''}',
+                            '${order.shippingAddressEntity.address ?? ''} ${order.shippingAddressEntity.addressDescription ?? ''}',
                             style: TextStyle(color: Colors.grey[700]),
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            'City: ${order.shippingAddressModel.city ?? '—'} • Phone: ${order.shippingAddressModel.phone ?? '—'}',
+                            'City: ${order.shippingAddressEntity.city ?? '—'} • Phone: ${order.shippingAddressEntity.phone ?? '—'}',
                             style: TextStyle(color: Colors.grey[700]),
                           ),
                         ],

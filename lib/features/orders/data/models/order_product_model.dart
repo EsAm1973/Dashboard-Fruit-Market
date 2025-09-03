@@ -1,3 +1,5 @@
+import 'package:fruit_market_dashboard/features/orders/domain/entites/order_product_entity.dart';
+
 class OrderProductModel {
   final String name;
   final String code;
@@ -21,11 +23,20 @@ class OrderProductModel {
     "imageUrl": imageUrl,
   };
 
-  factory OrderProductModel.fromJson(Map<String, dynamic> json) => OrderProductModel(
-    name: json["name"],
-    code: json["code"],
-    price: json["price"],
-    imageUrl: json["imageUrl"],
-    quantity: json["quantity"],
+  factory OrderProductModel.fromJson(Map<String, dynamic> json) =>
+      OrderProductModel(
+        name: json["name"],
+        code: json["code"],
+        price: json["price"],
+        imageUrl: json["imageUrl"],
+        quantity: json["quantity"],
+      );
+
+  OrderProductEntity toEntity() => OrderProductEntity(
+    name: name,
+    code: code,
+    price: price,
+    imageUrl: imageUrl,
+    quantity: quantity,
   );
 }

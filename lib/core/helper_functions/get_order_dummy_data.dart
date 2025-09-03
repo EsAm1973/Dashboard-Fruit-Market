@@ -1,29 +1,29 @@
-// مثال دالة تُعيد OrderModel مكتمل
-import 'package:fruit_market_dashboard/features/orders/data/models/order_model.dart';
-import 'package:fruit_market_dashboard/features/orders/data/models/order_product_model.dart';
-import 'package:fruit_market_dashboard/features/orders/data/models/shipping_model.dart';
 
-OrderModel getDummyOrder({
+import 'package:fruit_market_dashboard/features/orders/domain/entites/order_entity.dart';
+import 'package:fruit_market_dashboard/features/orders/domain/entites/order_product_entity.dart';
+import 'package:fruit_market_dashboard/features/orders/domain/entites/shipping_entity.dart';
+
+OrderEntity getDummyOrder({
   String uID = 'ORD-20250903-001',
   String paymentMethod = 'Credit Card',
 }) {
   // عين بعض المنتجات كمثال
-  final products = <OrderProductModel>[
-    OrderProductModel(
+  final products = <OrderProductEntity>[
+    OrderProductEntity(
       name: 'Wireless Headphones',
       code: 'WH-001',
       price: 79.99,
       imageUrl: 'https://example.com/images/headphones.jpg',
       quantity: 1,
     ),
-    OrderProductModel(
+    OrderProductEntity(
       name: 'USB-C Charger',
       code: 'UC-123',
       price: 19.50,
       imageUrl: 'https://example.com/images/charger.jpg',
       quantity: 2,
     ),
-    OrderProductModel(
+    OrderProductEntity(
       name: 'Phone Case',
       code: 'PC-09',
       price: 9.0,
@@ -39,7 +39,7 @@ OrderModel getDummyOrder({
   );
 
   // عنوان الشحن كمثال
-  final shipping = ShippingAddressModel(
+  final shipping = ShippingAddressEntity(
     name: 'Ahmed Ali',
     address: '123 Nile Street',
     city: 'Cairo',
@@ -49,10 +49,10 @@ OrderModel getDummyOrder({
   );
 
   // إرجاع الـ OrderModel كامل
-  return OrderModel(
+  return OrderEntity(
     uID: uID,
     totalPrice: total,
-    shippingAddressModel: shipping,
+    shippingAddressEntity: shipping,
     orderProducts: products,
     paymentMethod: paymentMethod,
   );

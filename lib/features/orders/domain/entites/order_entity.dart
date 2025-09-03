@@ -1,18 +1,18 @@
 import 'package:fruit_market_dashboard/features/orders/data/models/order_product_model.dart';
-import 'package:fruit_market_dashboard/features/orders/data/models/shipping_model.dart';
-import 'package:fruit_market_dashboard/features/orders/domain/entites/order_entity.dart';
+import 'package:fruit_market_dashboard/features/orders/domain/entites/order_product_entity.dart';
+import 'package:fruit_market_dashboard/features/orders/domain/entites/shipping_entity.dart';
 
-class OrderModel {
+class OrderEntity {
   final String uID;
   final double totalPrice;
-  final ShippingAddressModel shippingAddressModel;
-  final List<OrderProductModel> orderProducts;
+  final ShippingAddressEntity shippingAddressEntity;
+  final List<OrderProductEntity> orderProducts;
   final String paymentMethod;
 
-  OrderModel({
+  OrderEntity({
     required this.uID,
     required this.totalPrice,
-    required this.shippingAddressModel,
+    required this.shippingAddressEntity,
     required this.orderProducts,
     required this.paymentMethod,
   });
@@ -22,15 +22,15 @@ class OrderModel {
     'totalPrice': totalPrice,
     'status': 'pending',
     'date': DateTime.now().toString(),
-    'shippingAddressModel': shippingAddressModel.toJson(),
+    'shippingAddressModel': shippingAddressEntity.toJson(),
     'orderProducts': orderProducts.map((e) => e.toJson()).toList(),
     'paymentMethod': paymentMethod,
   };
 
-  factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
+  factory OrderEntity.fromJson(Map<String, dynamic> json) => OrderEntity(
     uID: json['uID'],
     totalPrice: json['totalPrice'],
-    shippingAddressModel: ShippingAddressModel.fromJson(
+    shippingAddressEntity: ShippingAddressEntity.fromJson(
       json['shippingAddressModel'],
     ),
     orderProducts:
@@ -38,13 +38,5 @@ class OrderModel {
             .map((e) => OrderProductModel.fromJson(e))
             .toList(),
     paymentMethod: json['paymentMethod'],
-  );
-
-  toEntity() => OrderEntity(
-    uID: uID,
-    totalPrice: totalPrice,
-    shippingAddressEntity: shippingAddressModel.toEntity(),
-    orderProducts: orderProducts.map((e) => e.toEntity()).toList(),
-    paymentMethod: paymentMethod,
   );
 }
