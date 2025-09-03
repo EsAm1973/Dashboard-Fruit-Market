@@ -17,6 +17,7 @@ class AddProductInputModel {
   final int numberOfCalories;
   final num averageRating;
   final num ratingCount;
+  final int sillingCount;
   final List<ReviewModel> reviews;
 
   AddProductInputModel({
@@ -34,6 +35,7 @@ class AddProductInputModel {
     required this.averageRating,
     required this.ratingCount,
     required this.reviews,
+    this.sillingCount = 0,
   });
 
   factory AddProductInputModel.fromEntity(
@@ -73,6 +75,7 @@ class AddProductInputModel {
       'averageRating': averageRating,
       'ratingCount': ratingCount,
       'reviews': reviews.map((review) => review.toJson()).toList(),
+      'sillingCount': sillingCount,
     };
   }
 }
