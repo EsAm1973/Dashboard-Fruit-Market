@@ -33,4 +33,16 @@ class FirestoreService implements DatabaseService {
     var data = await firestore.collection(path).doc(documentId).get();
     return data.exists;
   }
+
+  @override
+  Future<List<Map<String, dynamic>>> getAllData({required String path}) async {
+    try {
+      final querySnapshot = await firestore.collection(path).get();
+      return querySnapshot.docs.map((doc) => doc.data()).toList();
+    } on FirebaseException catch (e) {
+      throw FirebaseException(code: e.code, message: e.message, plugin: path);
+    } catch (e) {
+      throw Exception('Failed to get data: $e');
+    }
+  }
 }

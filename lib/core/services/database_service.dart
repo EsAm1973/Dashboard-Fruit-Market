@@ -13,4 +13,6 @@ abstract class DatabaseService {
     required String path,
     required String documentId,
   });
+
+  Future<List<Map<String, dynamic>>> getAllData({required String path});
 }
