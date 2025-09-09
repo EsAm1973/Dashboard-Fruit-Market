@@ -19,6 +19,12 @@ class _OrderItemListviewState extends State<OrderItemListview> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    context.read<OrdersCubit>().close();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<OrdersCubit, OrdersState>(
       builder: (context, state) {

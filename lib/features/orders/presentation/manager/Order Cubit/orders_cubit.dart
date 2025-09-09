@@ -12,16 +12,16 @@ class OrdersCubit extends Cubit<OrdersState> {
   StreamSubscription? ordersStreamSubscription;
   OrdersCubit(this.ordersRepo) : super(OrdersInitial());
 
-  Future<void> getOrders() async {
-    emit(OrdersLoading());
+  // Future<void> getOrders() async {
+  //   emit(OrdersLoading());
 
-    final either = await ordersRepo.getOrders();
+  //   final either = await ordersRepo.getOrders();
 
-    either.fold(
-      (failure) => emit(OrdersError(failure.message)),
-      (orders) => emit(OrdersLoaded(orders)),
-    );
-  }
+  //   either.fold(
+  //     (failure) => emit(OrdersError(failure.message)),
+  //     (orders) => emit(OrdersLoaded(orders)),
+  //   );
+  // }
 
   void watchOrders() {
     // إلغاء أي اشتراك سابق لتجنب تسرب الذاكرة
