@@ -14,12 +14,11 @@ class OrdersRepoImpl implements OrdersRepo {
     try {
       final ordersData = await databaseService.getAllData(path: 'orders');
 
-      final orders =
-          ordersData
-              .map<OrderEntity>(
-                (data) => OrderModel.fromJson(data).toEntity(),
-              ) // تحويل Model إلى Entity
-              .toList();
+      final orders = ordersData
+          .map<OrderEntity>(
+            (data) => OrderModel.fromJson(data).toEntity(),
+          ) // تحويل Model إلى Entity
+          .toList();
 
       return Right(orders);
     } on FirebaseException catch (e) {
@@ -33,15 +32,14 @@ class OrdersRepoImpl implements OrdersRepo {
   Stream<List<OrderEntity>> watchOrders() {
     return databaseService
         .watchAllData(path: 'orders')
-        .map((dataList) {
+        .map<List<OrderEntity>>((dataList) {
           return dataList
-              .map((data) => OrderModel.fromJson(data).toEntity())
+              .map<OrderEntity>((data) => OrderModel.fromJson(data).toEntity())
               .toList();
         })
         .handleError((error) {
           // يمكنك هنا تحويل الأخطاء إلى استثناءات مناسبة
           throw error;
-        })
-        .cast<List<OrderEntity>>();
+        });
   }
 }

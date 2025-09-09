@@ -5,6 +5,8 @@ import 'package:fruit_market_dashboard/core/services/getit_service.dart';
 import 'package:fruit_market_dashboard/features/add%20product/presentation/manager/add%20product/add_product_cubit.dart';
 import 'package:fruit_market_dashboard/features/add%20product/presentation/views/add_product_view.dart';
 import 'package:fruit_market_dashboard/features/dashboard/presentation/views/dashboard_view.dart';
+import 'package:fruit_market_dashboard/features/orders/domain/repos/orders_repo.dart';
+import 'package:fruit_market_dashboard/features/orders/presentation/manager/Order%20Cubit/orders_cubit.dart';
 import 'package:fruit_market_dashboard/features/orders/presentation/views/order_view.dart';
 import 'package:go_router/go_router.dart';
 
@@ -32,7 +34,11 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kOrdersViewRoute,
-        builder: (context, state) => const OrderView(),
+        builder:
+            (context, state) => BlocProvider(
+              create: (context) => OrdersCubit(getIt.get<OrdersRepo>()),
+              child: const OrderView(),
+            ),
       ),
     ],
   );

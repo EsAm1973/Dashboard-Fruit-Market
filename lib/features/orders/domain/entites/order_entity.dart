@@ -1,4 +1,3 @@
-import 'package:fruit_market_dashboard/features/orders/data/models/order_product_model.dart';
 import 'package:fruit_market_dashboard/features/orders/domain/entites/order_product_entity.dart';
 import 'package:fruit_market_dashboard/features/orders/domain/entites/shipping_entity.dart';
 
@@ -34,8 +33,8 @@ class OrderEntity {
       json['shippingAddressModel'],
     ),
     orderProducts:
-        json['orderProducts']
-            .map((e) => OrderProductModel.fromJson(e))
+        (json['orderProducts'] as List)
+            .map((e) => OrderProductEntity.fromJson(e as Map<String, dynamic>))
             .toList(),
     paymentMethod: json['paymentMethod'],
   );

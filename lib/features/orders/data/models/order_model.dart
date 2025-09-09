@@ -34,8 +34,8 @@ class OrderModel {
       json['shippingAddressModel'],
     ),
     orderProducts:
-        json['orderProducts']
-            .map((e) => OrderProductModel.fromJson(e))
+        (json['orderProducts'] as List)
+            .map((e) => OrderProductModel.fromJson(e as Map<String, dynamic>))
             .toList(),
     paymentMethod: json['paymentMethod'],
   );
