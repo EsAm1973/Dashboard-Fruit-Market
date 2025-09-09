@@ -28,4 +28,20 @@ class OrdersRepoImpl implements OrdersRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Stream<List<OrderEntity>> watchOrders() {
+    return databaseService
+        .watchAllData(path: 'orders')
+        .map((dataList) {
+          return dataList
+              .map((data) => OrderModel.fromJson(data).toEntity())
+              .toList();
+        })
+        .handleError((error) {
+          // يمكنك هنا تحويل الأخطاء إلى استثناءات مناسبة
+          throw error;
+        })
+        .cast<List<OrderEntity>>();
+  }
 }

@@ -4,4 +4,5 @@ import 'package:fruit_market_dashboard/features/orders/domain/entites/order_enti
 
 abstract class OrdersRepo {
   Future<Either<Failures, List<OrderEntity>>> getOrders();
+  Stream<List<OrderEntity>> watchOrders();
 }

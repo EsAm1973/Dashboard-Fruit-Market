@@ -45,4 +45,16 @@ class FirestoreService implements DatabaseService {
       throw Exception('Failed to get data: $e');
     }
   }
+
+  @override
+  Stream<List<Map<String, dynamic>>> watchAllData({required String path}) {
+    return FirebaseFirestore.instance.collection(path).snapshots().map((
+      snapshot,
+    ) {
+      return snapshot.docs.map((doc) {
+        final data = doc.data();
+        return data;
+      }).toList();
+    });
+  }
 }

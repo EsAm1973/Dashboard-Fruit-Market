@@ -15,4 +15,6 @@ abstract class DatabaseService {
   });
 
   Future<List<Map<String, dynamic>>> getAllData({required String path});
+
+  Stream<List<Map<String, dynamic>>> watchAllData({required String path});
 }
