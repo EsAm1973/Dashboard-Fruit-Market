@@ -1,4 +1,5 @@
 import 'package:fruit_market_dashboard/features/orders/domain/entites/order_product_entity.dart';
+import 'package:fruit_market_dashboard/features/orders/domain/entites/order_status.dart';
 import 'package:fruit_market_dashboard/features/orders/domain/entites/shipping_entity.dart';
 
 class OrderEntity {
@@ -7,6 +8,8 @@ class OrderEntity {
   final ShippingAddressEntity shippingAddressEntity;
   final List<OrderProductEntity> orderProducts;
   final String paymentMethod;
+  final OrderStatus status;
+  final DateTime date;
 
   OrderEntity({
     required this.uID,
@@ -14,13 +17,15 @@ class OrderEntity {
     required this.shippingAddressEntity,
     required this.orderProducts,
     required this.paymentMethod,
-  });
+    this.status = OrderStatus.pending,
+    DateTime? date,
+  }) : date = date ?? DateTime.now();
 
   toJson() => {
     'uID': uID,
     'totalPrice': totalPrice,
-    'status': 'pending',
-    'date': DateTime.now().toString(),
+    'status': status.value,
+    'date': date.toIso8601String(),
     'shippingAddressModel': shippingAddressEntity.toJson(),
     'orderProducts': orderProducts.map((e) => e.toJson()).toList(),
     'paymentMethod': paymentMethod,
@@ -37,5 +42,9 @@ class OrderEntity {
             .map((e) => OrderProductEntity.fromJson(e as Map<String, dynamic>))
             .toList(),
     paymentMethod: json['paymentMethod'],
+    status: OrderStatus.fromString(json['status'] ?? 'pending'),
+    date: json['date'] != null 
+        ? DateTime.parse(json['date']) 
+        : DateTime.now(),
   );
 }

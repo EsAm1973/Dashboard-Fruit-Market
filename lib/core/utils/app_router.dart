@@ -5,15 +5,18 @@ import 'package:fruit_market_dashboard/core/services/getit_service.dart';
 import 'package:fruit_market_dashboard/features/add%20product/presentation/manager/add%20product/add_product_cubit.dart';
 import 'package:fruit_market_dashboard/features/add%20product/presentation/views/add_product_view.dart';
 import 'package:fruit_market_dashboard/features/dashboard/presentation/views/dashboard_view.dart';
+import 'package:fruit_market_dashboard/features/orders/domain/entites/order_entity.dart';
 import 'package:fruit_market_dashboard/features/orders/domain/repos/orders_repo.dart';
 import 'package:fruit_market_dashboard/features/orders/presentation/manager/Order%20Cubit/orders_cubit.dart';
 import 'package:fruit_market_dashboard/features/orders/presentation/views/order_view.dart';
+import 'package:fruit_market_dashboard/features/orders/presentation/views/widgets/order_view_details.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
   static const String kDashboardViewRoute = '/';
   static const String kAddProductViewRoute = '/add-product';
   static const String kOrdersViewRoute = '/orders';
+  static const String kOrderDetailsViewRoute = '/order-details';
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -39,6 +42,13 @@ abstract class AppRouter {
               create: (context) => OrdersCubit(getIt.get<OrdersRepo>()),
               child: const OrderView(),
             ),
+      ),
+      GoRoute(
+        path: kOrderDetailsViewRoute,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>;
+          return OrderDetailsScreen(order: extra['order'] as OrderEntity);
+        },
       ),
     ],
   );
