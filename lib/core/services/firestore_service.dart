@@ -35,18 +35,6 @@ class FirestoreService implements DatabaseService {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getAllData({required String path}) async {
-    try {
-      final querySnapshot = await firestore.collection(path).get();
-      return querySnapshot.docs.map((doc) => doc.data()).toList();
-    } on FirebaseException catch (e) {
-      throw FirebaseException(code: e.code, message: e.message, plugin: path);
-    } catch (e) {
-      throw Exception('Failed to get data: $e');
-    }
-  }
-
-  @override
   Stream<List<Map<String, dynamic>>> watchAllData({required String path}) {
     return FirebaseFirestore.instance.collection(path).snapshots().map((
       snapshot,
@@ -67,24 +55,5 @@ class FirestoreService implements DatabaseService {
     required Map<String, dynamic> data,
   }) async {
     await firestore.collection(path).doc(documentId).update(data);
-  }
-
-  @override
-  Future<void> updateWhere({
-    required String path,
-    required String field,
-    required dynamic isEqualTo,
-    required Map<String, dynamic> data,
-  }) async {
-    final query =
-        await firestore
-            .collection(path)
-            .where(field, isEqualTo: isEqualTo)
-            .limit(1)
-            .get();
-    if (query.docs.isEmpty) {
-      throw Exception('Some Requested Content Not Found');
-    }
-    await query.docs.first.reference.update(data);
   }
 }

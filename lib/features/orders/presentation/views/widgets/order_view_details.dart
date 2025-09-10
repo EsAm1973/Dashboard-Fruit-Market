@@ -31,7 +31,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    _selectedStatus = _parseStatus(widget.status);
+    _selectedStatus = _parseStatus(widget.status) ?? widget.order.status;
   }
 
   String _priceFmt(num price) => price.toDouble().toStringAsFixed(2);
@@ -247,7 +247,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             Card(
               child: ListTile(
                 title: Text(widget.order.paymentMethod),
-                subtitle: Text('Payment status: ${_selectedStatus != null ? _statusLabel(_selectedStatus!) : (widget.status ?? '—')}'),
+                subtitle: Text('Payment status: ${_selectedStatus != null ? _statusLabel(_selectedStatus!) : (widget.status ?? _statusLabel(widget.order.status))}'),
                 trailing: ElevatedButton(
                   onPressed: () {
                     // مثال لفتح صفحة الدفع/فاتورة
