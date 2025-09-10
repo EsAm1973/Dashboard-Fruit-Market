@@ -53,8 +53,38 @@ class FirestoreService implements DatabaseService {
     ) {
       return snapshot.docs.map((doc) {
         final data = doc.data();
+        // إضافة document ID إلى البيانات
+        data['id'] = doc.id; // إضافة حقل id يحتوي على document ID
         return data;
       }).toList();
     });
+  }
+
+  @override
+  Future<void> updateData({
+    required String path,
+    required String documentId,
+    required Map<String, dynamic> data,
+  }) async {
+    await firestore.collection(path).doc(documentId).update(data);
+  }
+
+  @override
+  Future<void> updateWhere({
+    required String path,
+    required String field,
+    required dynamic isEqualTo,
+    required Map<String, dynamic> data,
+  }) async {
+    final query =
+        await firestore
+            .collection(path)
+            .where(field, isEqualTo: isEqualTo)
+            .limit(1)
+            .get();
+    if (query.docs.isEmpty) {
+      throw Exception('Some Requested Content Not Found');
+    }
+    await query.docs.first.reference.update(data);
   }
 }

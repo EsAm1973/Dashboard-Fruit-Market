@@ -1,6 +1,7 @@
 import 'package:fruit_market_dashboard/core/services/database_service.dart';
 import 'package:fruit_market_dashboard/features/orders/data/models/order_model.dart';
 import 'package:fruit_market_dashboard/features/orders/domain/entites/order_entity.dart';
+import 'package:fruit_market_dashboard/features/orders/domain/entites/order_status.dart';
 import 'package:fruit_market_dashboard/features/orders/domain/repos/orders_repo.dart';
 
 class OrdersRepoImpl implements OrdersRepo {
@@ -10,13 +11,11 @@ class OrdersRepoImpl implements OrdersRepo {
   // Future<Either<Failures, List<OrderEntity>>> getOrders() async {
   //   try {
   //     final ordersData = await databaseService.getAllData(path: 'orders');
-
   //     final orders = ordersData
   //         .map<OrderEntity>(
   //           (data) => OrderModel.fromJson(data).toEntity(),
   //         ) // تحويل Model إلى Entity
   //         .toList();
-
   //     return Right(orders);
   //   } on FirebaseException catch (e) {
   //     return Left(ServerFailure(e.message!));
@@ -24,7 +23,6 @@ class OrdersRepoImpl implements OrdersRepo {
   //     return Left(ServerFailure(e.toString()));
   //   }
   // }
-
   @override
   Stream<List<OrderEntity>> watchOrders() {
     return databaseService
@@ -35,8 +33,19 @@ class OrdersRepoImpl implements OrdersRepo {
               .toList();
         })
         .handleError((error) {
-          // يمكنك هنا تحويل الأخطاء إلى استثناءات مناسبة
           throw error;
         });
+  }
+
+  @override
+  Future<void> updateOrderStatus({
+    required String orderId,
+    required OrderStatus status,
+  }) async {
+    await databaseService.updateData(
+      path: 'orders',
+      documentId: orderId, // استخدام معرف المستند مباشرة
+      data: {'status': status.value},
+    );
   }
 }

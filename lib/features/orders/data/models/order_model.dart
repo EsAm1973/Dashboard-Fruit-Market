@@ -4,6 +4,7 @@ import 'package:fruit_market_dashboard/features/orders/domain/entites/order_enti
 import 'package:fruit_market_dashboard/features/orders/domain/entites/order_status.dart';
 
 class OrderModel {
+  final String id;
   final String uID;
   final double totalPrice;
   final ShippingAddressModel shippingAddressModel;
@@ -13,6 +14,7 @@ class OrderModel {
   final DateTime date;
 
   OrderModel({
+    required this.id,
     required this.uID,
     required this.totalPrice,
     required this.shippingAddressModel,
@@ -23,6 +25,7 @@ class OrderModel {
   }) : date = date ?? DateTime.now();
 
   toJson() => {
+    'id': id,
     'uID': uID,
     'totalPrice': totalPrice,
     'status': status.value,
@@ -33,6 +36,7 @@ class OrderModel {
   };
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
+    id: json['id'],
     uID: json['uID'],
     totalPrice: json['totalPrice'],
     shippingAddressModel: ShippingAddressModel.fromJson(
@@ -50,6 +54,7 @@ class OrderModel {
   );
 
   toEntity() => OrderEntity(
+    id: id,
     uID: uID,
     totalPrice: totalPrice,
     shippingAddressEntity: shippingAddressModel.toEntity(),

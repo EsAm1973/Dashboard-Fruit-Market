@@ -6,6 +6,7 @@ import 'package:fruit_market_dashboard/features/orders/domain/entites/shipping_e
 OrderEntity getDummyOrder({
   String uID = 'ORD-20250903-001',
   String paymentMethod = 'Credit Card',
+  String id = 'ORD-20250903-001',
 }) {
   // عين بعض المنتجات كمثال
   final products = <OrderProductEntity>[
@@ -50,6 +51,7 @@ OrderEntity getDummyOrder({
 
   // إرجاع الـ OrderModel كامل
   return OrderEntity(
+    id: id,
     uID: uID,
     totalPrice: total,
     shippingAddressEntity: shipping,

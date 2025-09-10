@@ -8,6 +8,7 @@ import 'package:fruit_market_dashboard/features/dashboard/presentation/views/das
 import 'package:fruit_market_dashboard/features/orders/domain/entites/order_entity.dart';
 import 'package:fruit_market_dashboard/features/orders/domain/repos/orders_repo.dart';
 import 'package:fruit_market_dashboard/features/orders/presentation/manager/Order%20Cubit/orders_cubit.dart';
+import 'package:fruit_market_dashboard/features/orders/presentation/manager/Order%20Update%20Status%20Cubit/order_update_cubit.dart';
 import 'package:fruit_market_dashboard/features/orders/presentation/views/order_view.dart';
 import 'package:fruit_market_dashboard/features/orders/presentation/views/widgets/order_view_details.dart';
 import 'package:go_router/go_router.dart';
@@ -47,7 +48,11 @@ abstract class AppRouter {
         path: kOrderDetailsViewRoute,
         builder: (context, state) {
           final extra = state.extra as Map<String, dynamic>;
-          return OrderDetailsScreen(order: extra['order'] as OrderEntity);
+          final order = extra['order'] as OrderEntity;
+          return BlocProvider(
+            create: (_) => OrderUpdateCubit(getIt.get<OrdersRepo>()),
+            child: OrderDetailsScreen(order: order),
+          );
         },
       ),
     ],

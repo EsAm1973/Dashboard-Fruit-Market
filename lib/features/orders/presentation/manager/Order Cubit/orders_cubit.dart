@@ -24,13 +24,12 @@ class OrdersCubit extends Cubit<OrdersState> {
   // }
 
   void watchOrders() {
-    // إلغاء أي اشتراك سابق لتجنب تسرب الذاكرة
     ordersStreamSubscription?.cancel();
-
     emit(OrdersLoading());
 
     ordersStreamSubscription = ordersRepo.watchOrders().listen(
       (orders) {
+        // الآن كل order سيكون له id (document ID)
         emit(OrdersLoaded(orders));
       },
       onError: (error) {
